@@ -1,4 +1,7 @@
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import axios from 'axios';
+import Countdown from 'react-countdown';
 import Home from './Screens/Home';
 import PropertyForm from './Screens/AddProperty';
 import GetStarted from './Screens/GetStarted';
@@ -11,6 +14,35 @@ import About from './Screens/About';
 import FAQs from './Screens/FAQs';
 
 function App() {
+  const [isServerReady, setIsServerReady] = useState(false);
+
+  useEffect(() => {
+    const checkServerStatus = async () => {
+      try {
+        const response = await axios.get('https://rentify-real-estate-full-stack-app.onrender.com/api/v1/buyer/view-properties');
+        if (response.status === 200) {
+          setIsServerReady(true);
+          console.log('Server is ready');
+        }
+      } catch (error) {
+        console.log('Server is not ready yet, waiting for it to spin up');
+        setTimeout(() => {
+          setIsServerReady(true);
+        }, 60000); // 60 seconds delay
+      }
+    };
+
+    checkServerStatus();
+  }, []);
+
+  const renderer = ({ seconds, completed }) => {
+    if (completed) {
+      return <GetStarted />;
+    } else {
+      return <div className="countdown">{`Please wait while we set things up... ${seconds}s`}</div>;
+    }
+  };
+
   return (
     <Router>
       <header className="bg-gray-950 text-gray-50 py-4 px-4 md:px-6">
@@ -33,7 +65,7 @@ function App() {
             </svg>
             <span className="text-xl font-bold">Rentify</span>
           </Link>
-        <nav className="flex items-center gap-4">
+          <nav className="flex items-center gap-4">
             <Link className="text-sm hover:underline" to={"/about"}>
               About Us
             </Link>
@@ -46,18 +78,24 @@ function App() {
           </nav>
         </div>
       </header>
-      <Routes>
-        <Route path="/home" element={<Home />} />
-        <Route path="/" element={<GetStarted />} />
-        <Route path="/profile" element={<BuyerViewProfile />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/add-property" element={<PropertyForm/>} />
-        <Route path="/property-details" element={<PropertyDetails/>} />
-        <Route path="/seller-listings" element={<SellerListing/>} />
-        <Route path="/contact" element={<Contact/>} />
-        <Route path="/about" element={<About/>} />
-        <Route path="/faqs" element={<FAQs/>} />
-      </Routes>
+      {!isServerReady ? (
+        <div className="flex justify-center items-center min-h-screen">
+          <Countdown date={Date.now() + 60000} renderer={renderer} />
+        </div>
+      ) : (
+        <Routes>
+          <Route path="/" element={<GetStarted />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/profile" element={<BuyerViewProfile />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/add-property" element={<PropertyForm />} />
+          <Route path="/property-details" element={<PropertyDetails />} />
+          <Route path="/seller-listings" element={<SellerListing />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/faqs" element={<FAQs />} />
+        </Routes>
+      )}
       <footer className="bg-gray-950 text-gray-50 py-6 px-4 md:px-6">
         <div className="container mx-auto flex items-center justify-between">
           <Link className="flex items-center gap-2" to={"/"}>
@@ -92,7 +130,6 @@ function App() {
         </div>
       </footer>
     </Router>
-
   );
 }
 

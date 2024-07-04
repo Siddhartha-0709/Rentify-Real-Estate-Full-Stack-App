@@ -13,7 +13,7 @@ function BuyerViewProfile() {
 
     const getUserDetails = async () => {
         try {
-            const response = await axios.post('http://localhost:3000/api/v1/buyer/view-profile', { buyerId: userId });
+            const response = await axios.post('https://rentify-real-estate-full-stack-app.onrender.com/api/v1/buyer/view-profile', { buyerId: userId });
             const data = response.data;
             setUserDetails(data.buyerProfile);
             console.log(data.buyerProfile);
@@ -27,7 +27,7 @@ function BuyerViewProfile() {
 
     const getInterestedProperties = async (propertyId) => {
         try {
-            const response = await axios.get(`http://localhost:3000/api/v1/buyer/get-property-details?propertyId=${propertyId}`);
+            const response = await axios.get(`https://rentify-real-estate-full-stack-app.onrender.com/api/v1/buyer/get-property-details?propertyId=${propertyId}`);
             setInterestedProperties(prevState => [...prevState, response.data.propertyDetails]);
         } catch (error) {
             console.error('Error fetching property details:', error);

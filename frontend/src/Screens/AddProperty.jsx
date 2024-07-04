@@ -74,7 +74,7 @@ const PropertyForm = () => {
             delete formData.longitude;
             console.table('Final Payload ', formData);
             // Send the POST request
-            const response = await axios.post('http://localhost:3000/api/v1/seller/add-property', formData, {
+            const response = await axios.post('https://rentify-real-estate-full-stack-app.onrender.com/api/v1/seller/add-property', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

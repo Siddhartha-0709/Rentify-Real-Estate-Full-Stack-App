@@ -15,7 +15,7 @@ function PropertyDetails() {
     const getPropertyDetails = async (propertyId) => {
         console.log('Fetching Data');
         try {
-            const response = await axios.get(`http://localhost:3000/api/v1/buyer/get-property-details?propertyId=${propertyId}`);
+            const response = await axios.get(`https://rentify-real-estate-full-stack-app.onrender.com/api/v1/buyer/get-property-details?propertyId=${propertyId}`);
             const data = response.data; // Directly access the data from the response
             console.log(data);
             setDetails(data.propertyDetails || {});
@@ -27,7 +27,7 @@ function PropertyDetails() {
     const addToInterstedList = async () => {
         try {
             setShowAlert(true);
-            const response = await axios.post('http://localhost:3000/api/v1/buyer/add-to-interest', { propertyId: details._id, buyerId: userId });
+            const response = await axios.post('https://rentify-real-estate-full-stack-app.onrender.com/api/v1/buyer/add-to-interest', { propertyId: details._id, buyerId: userId });
             console.log(response.data);
             setTimeout(() => {
                 setAlertText('Added to interested list successfully');

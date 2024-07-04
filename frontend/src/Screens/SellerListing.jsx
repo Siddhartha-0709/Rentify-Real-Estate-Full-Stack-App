@@ -10,7 +10,7 @@ function SellerListing() {
     const [postedProperties, setPostedProperties] = useState([]);
     const fetchSellerDetails = async () => {
         try {
-            const response = await axios.post('http://localhost:3000/api/v1/seller/seller-posted-property', { sellerId: userId });
+            const response = await axios.post('https://rentify-real-estate-full-stack-app.onrender.com/api/v1/seller/seller-posted-property', { sellerId: userId });
             const data = response.data; // Directly access the data from the response
             setSellerData(data.sellerDetails);
             setPostedProperties(data.postedProperties);
@@ -25,7 +25,7 @@ function SellerListing() {
     }
     const handleDeleteProperty = async (propertyId) => {
         try {
-            const response = await axios.post('http://localhost:3000/api/v1/seller/delete-property', { propertyId: propertyId });
+            const response = await axios.post('https://rentify-real-estate-full-stack-app.onrender.com/api/v1/seller/delete-property', { propertyId: propertyId });
             if (response.status === 200) {
                 alert("Property Deleted Successfully");
                 fetchSellerDetails();
@@ -37,7 +37,7 @@ function SellerListing() {
     }
     const handleModifyAvailability = async (propertyId, isAvailable) => {
         try {
-            const response = await axios.post('http://localhost:3000/api/v1/seller/modity-availability', { propertyId: propertyId, isAvailable: isAvailable });
+            const response = await axios.post('https://rentify-real-estate-full-stack-app.onrender.com/api/v1/seller/modity-availability', { propertyId: propertyId, isAvailable: isAvailable });
             if (response.status === 200) {
                 alert("Availability Modified Successfully");
                 fetchSellerDetails();
