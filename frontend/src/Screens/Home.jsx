@@ -9,7 +9,7 @@ function Home() {
     console.log('userId:', userId);
     const getProperties = async () => {
         try {
-            const response = await axios.get('https://rentify-real-estate-full-stack-app.onrender.com/api/v1/buyer/view-properties');
+            const response = await axios.get('http://localhost:3000/api/v1/buyer/view-properties');
             const data = response.data; // Directly access the data from the response
             console.log(data);
             setProperties(data.allProperties);
