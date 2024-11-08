@@ -40,7 +40,7 @@ const Login = () => {
         else{
             console.log("buyer");
             try{
-                const response = await axios.post('http://localhost:3000/api/v1/buyer/login-buyer',{
+                const response = await axios.post('https://rentify-real-estate-full-stack-app.onrender.com/api/v1/buyer/login-buyer',{
                     email: formData.email,
                     password: formData.password
                 });

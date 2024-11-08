@@ -21,14 +21,14 @@ const GetStarted = () => {
     };
 
     const handleSubmit = async (e) => {
-        // http://localhost:3000/api/v1/register/seller-register
-        // http://localhost:3000/api/v1/buyer/register-buyer
+        // https://rentify-real-estate-full-stack-app.onrender.com/api/v1/register/seller-register
+        // https://rentify-real-estate-full-stack-app.onrender.com/api/v1/buyer/register-buyer
         e.preventDefault();
         // console.log(formData);
         if(formData.isSeller===true){
             console.log("seller");
             try{
-                const response = await axios.post('http://localhost:3000/api/v1/register/seller-register',{
+                const response = await axios.post('https://rentify-real-estate-full-stack-app.onrender.com/api/v1/register/seller-register',{
                     firstName: formData.firstName,
                     lastName: formData.lastName,
                     email: formData.email,
@@ -47,7 +47,7 @@ const GetStarted = () => {
         else{
             console.log("buyer");
             try{
-                const response = await axios.post('http://localhost:3000/api/v1/buyer/register-buyer',{
+                const response = await axios.post('https://rentify-real-estate-full-stack-app.onrender.com/api/v1/buyer/register-buyer',{
                     firstName: formData.firstName,
                     lastName: formData.lastName,
                     email: formData.email,
